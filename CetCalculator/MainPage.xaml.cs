@@ -95,7 +95,10 @@ namespace CetCalculator
 
         private void SubtractButton_Clicked(object sender, EventArgs e)
         {
-            
+            if(currentOperator!=Operator.None && !isFirstNumberAfterOperator)
+            {
+                DoCalculation();
+            }
             currentOperator = Operator.Subtract;
             firstnumber = Convert.ToDouble(Display.Text);
            
@@ -105,7 +108,13 @@ namespace CetCalculator
 
         private void EqualButton_Clicked(object sender, EventArgs e)
         {
-            double secondNumber= Convert.ToDouble(Display.Text);
+            DoCalculation();
+
+        }
+
+        private void DoCalculation()
+        {
+            double secondNumber = Convert.ToDouble(Display.Text);
             double result = 0;
             switch (currentOperator)
             {
@@ -125,13 +134,16 @@ namespace CetCalculator
                     break;
             }
             Display.Text = result.ToString();
-            firstnumber= result; //??
-            currentOperator= Operator.None;
-
+            firstnumber = result; //??
+            currentOperator = Operator.None;
         }
 
         private void AddButton_Clicked(object sender, EventArgs e)
         {
+            if (currentOperator != Operator.None && !isFirstNumberAfterOperator)
+            {
+                DoCalculation();
+            }
             currentOperator = Operator.Add;
             firstnumber = Convert.ToDouble(Display.Text);
             isFirstNumberAfterOperator= true;
